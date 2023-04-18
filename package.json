@@ -1,0 +1,26 @@
+{
+  "name": "cignetsys",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.5.4",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@supabase/supabase-js": "^2.20.0",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "framer-motion": "^10.9.1",
+    "lena.js": "^0.8.0",
+    "next": "13.2.4",
+    "party-js": "^2.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "sentiment": "^5.0.2"
+  }
+}
