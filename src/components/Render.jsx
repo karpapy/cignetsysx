@@ -306,28 +306,56 @@ export const RenderComponent = () => {
                 internet
               </Link>
             </Box>
+            <Stack direction="row">
+              <Link color="blue" href="https://github.com/karpapy/cignetsysx">
+                the code
+              </Link>
+              <Text> | </Text>
+              <Link color="blue" href="https://cigawrettebot.com/">
+                official renderer
+              </Link>
+              <Text> | </Text>
+              <Link color="blue" href="https://twitter.com/karpapy">
+                @karpapy
+              </Link>
+              <Text> | </Text>
+              <Link color="blue" href="https://twitter.com/cryptocojak">
+                @shrimpfarmer
+              </Link>
+            </Stack>
           </Box>
         </Box>
       )}
       {pastCreations.length > 0 && (
-        <Box width="100%">
-          <Text>creations</Text>
-          <Box display="flex" flexWrap="wrap" flexDir="row">
-            {pastCreations.map((e, i) => {
-              return (
-                <Downloadable key={i} fileURL={e} filename="render.png">
-                  <ChakraImage
-                    width="300px"
-                    margin="10px"
-                    key={i}
-                    src={e}
-                    alt="a cig"
-                  />
-                </Downloadable>
-              )
-            })}
+        <>
+          <Box width="100%">
+            <Text>creations</Text>
+            <Box display="flex" flexWrap="wrap" flexDir="row">
+              {pastCreations.map((e, i) => {
+                return (
+                  <Downloadable key={i} fileURL={e} filename="render.png">
+                    <ChakraImage
+                      width="300px"
+                      margin="10px"
+                      key={i}
+                      src={e}
+                      alt="a cig"
+                    />
+                  </Downloadable>
+                )
+              })}
+            </Box>
           </Box>
-        </Box>
+          <Box
+            width="100%"
+            mt={6}
+            backgroundColor="whatsapp.400"
+            textAlign="center"
+            p={1}
+          >
+            <Text>~ words make love with one another ~</Text>
+          </Box>
+        </>
       )}
     </Box>
   )
