@@ -3,10 +3,12 @@ import { Inter } from "next/font/google";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import { RenderComponent } from "@/components/Render";
 import { Annoucement } from "@/components/Announcement";
-
-const inter = Inter({ subsets: ["latin"] });
+import React from "react";
 
 export default function Home() {
+  const [userDidRenderAtLeastOnce, setUserDidRenderAtLeastOnce] =
+    React.useState(false);
+
   return (
     <>
       <Head>
@@ -33,9 +35,20 @@ export default function Home() {
           <Heading fontSize="3vh" margin="20px">
             100% aligned agi simulator
           </Heading>
-          <RenderComponent />
+          <RenderComponent setUserDidRender={setUserDidRenderAtLeastOnce} />
         </Box>
       </Box>
+      {userDidRenderAtLeastOnce && (
+        <Box
+          width="100%"
+          mt={6}
+          backgroundColor="whatsapp.400"
+          textAlign="center"
+          p={1}
+        >
+          <Text>~ words make love with one another ~</Text>
+        </Box>
+      )}
     </>
   );
 }

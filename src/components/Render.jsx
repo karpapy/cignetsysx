@@ -10,6 +10,7 @@ import {
   Stack,
   Flex,
   Checkbox,
+  Spinner,
 } from '@chakra-ui/react'
 import { useState, useRef, useEffect } from 'react'
 import { Downloadable } from './Downloadable'
@@ -28,6 +29,7 @@ import { Badge } from '@chakra-ui/react'
 import Sentiment from 'sentiment'
 import { useRouter } from 'next/router'
 import { createClient } from '@supabase/supabase-js'
+import { Customize } from './Customize'
 
 const setimentScoreToNameColor = (score) => {
   if (score < -3.5) {
@@ -95,7 +97,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_ROLE,
 )
 
-export const RenderComponent = () => {
+export const RenderComponent = ({ setUserDidRender }) => {
   const [textToRender, setTextToRender] = useState('')
   const [dataURI, setDataURI] = useState('')
   const [loading, setLoading] = useState(false)
@@ -106,19 +108,25 @@ export const RenderComponent = () => {
   const buttonRef = useRef(null)
   const [shouldFilter, setShouldFilter] = useState(false)
   const [pastCreations, setPastCreations] = useState([])
+  const [showCustomize, setShowCustomize] = useState(false)
+  const [filteredData, setFilteredData] = useState(null)
+  const [selectedAttributes, setSelectedAttributes] = useState({})
 
   const [renderData, setRenderData] = useState(null)
 
   const [renderCounter, setRenderCounter] = useState(null)
-  const router = useRouter()
 
   const render = async (text) => {
     let sent = new Sentiment()
     let score = sent.analyze(text).score
     setLoading(true)
     setCig(null)
-
-    const bdata = await getImageBufferData(text)
+    let cignumber = null
+    if (filteredData) {
+      cignumber = filteredData[Math.floor(Math.random() * filteredData.length)]
+      cignumber = parseInt(cignumber['name'].replace('#', ''))
+    }
+    const bdata = await getImageBufferData(text, cignumber)
     let dataURI = bdata['data']
     let addEffect = await addRandomImageEffect(dataURI, shouldFilter)
     dataURI = addEffect.data
@@ -130,6 +138,7 @@ export const RenderComponent = () => {
     setDataURI(dataURI)
     setCig(bdata['cig'])
     setLoading(false)
+    setUserDidRender(true)
   }
 
   async function getRenderData() {
@@ -191,20 +200,34 @@ export const RenderComponent = () => {
         }}
         ref={inputRef}
       />
-      <Button
-        w="100%"
-        margin="7px"
-        variant="solid"
-        onClick={() => render(textToRender)}
-        loadingText="Rendering..."
-        isLoading={loading}
-        backgroundColor="orange.400"
-        color="white"
-        ref={buttonRef}
-        _hover={{ backgroundColor: 'orange.500' }}
-      >
-        Render!
-      </Button>
+      <Stack w="100%" direction={['column', 'row']}>
+        <Button w="100%" onClick={() => setShowCustomize(!showCustomize)}>
+          {showCustomize ? 'Hide' : 'Customize'}
+        </Button>
+        <Button
+          w="100%"
+          margin="7px"
+          variant="solid"
+          onClick={() => render(textToRender)}
+          loadingText="Rendering..."
+          isLoading={loading}
+          backgroundColor="orange.400"
+          color="white"
+          ref={buttonRef}
+          _hover={{ backgroundColor: 'orange.500' }}
+        >
+          Render!
+        </Button>
+      </Stack>
+      {showCustomize && (
+        <Customize
+          filteredData={filteredData}
+          setFilteredData={setFilteredData}
+          selectedAttributes={selectedAttributes}
+          setSelectedAttributes={setSelectedAttributes}
+        />
+      )}
+
       <Stack
         spacing={[1, 5]}
         direction={['column', 'row']}
@@ -345,15 +368,6 @@ export const RenderComponent = () => {
                 )
               })}
             </Box>
-          </Box>
-          <Box
-            width="100%"
-            mt={6}
-            backgroundColor="whatsapp.400"
-            textAlign="center"
-            p={1}
-          >
-            <Text>~ words make love with one another ~</Text>
           </Box>
         </>
       )}

@@ -17,6 +17,7 @@
     "eslint-config-next": "13.2.4",
     "framer-motion": "^10.9.1",
     "lena.js": "^0.8.0",
+    "lz-string": "^1.5.0",
     "next": "13.2.4",
     "party-js": "^2.2.0",
     "react": "18.2.0",
