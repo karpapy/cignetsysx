@@ -12,10 +12,10 @@ import { useData } from './CigDataProvider'
 
 const attributes = [
   'Brand',
+  'Brand Line',
   'Eye Type',
   'Eye Color',
   'Background',
-  'Brand Line',
   'Certification',
   'Foil',
   'Tax Stamp',
