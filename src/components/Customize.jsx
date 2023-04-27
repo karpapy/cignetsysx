@@ -10,6 +10,17 @@ import {
 } from '@chakra-ui/react'
 import { useData } from './CigDataProvider'
 
+const attributes = [
+  'Brand',
+  'Eye Type',
+  'Eye Color',
+  'Background',
+  'Brand Line',
+  'Certification',
+  'Foil',
+  'Tax Stamp',
+]
+
 export const Customize = ({
   filteredData,
   setFilteredData,
@@ -49,6 +60,10 @@ export const Customize = ({
         }, {})
       : {}
 
+  const orderedAttributeKeys = attributes.filter(
+    (attr) => uniqueAttributes[attr],
+  )
+
   const countFilteredOptions = (attr, value) => {
     return filteredData.reduce((count, item) => {
       const foundAttr = item.attributes.find(
@@ -86,7 +101,8 @@ export const Customize = ({
           </Button>
         )}
       </Flex>
-      {Object.entries(uniqueAttributes).map(([attr, values], index) => {
+      {orderedAttributeKeys.map((attr, index) => {
+        const values = uniqueAttributes[attr]
         return (
           <React.Fragment key={index}>
             <Heading size="sm" mt={4} mb={1}>
