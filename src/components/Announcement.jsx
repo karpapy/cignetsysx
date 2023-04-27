@@ -17,10 +17,10 @@ export const Annoucement = () => {
 
   if (!show) return null
   return (
-    <Box bg="white" padding={2} textAlign="center" color="black" shadow="xl">
-      NEW!! PAPPACHAGA funeral edition!! Now you can render whilst mourning!!
-      <Button colorScheme="orange" mx={2} onClick={() => setShow(false)}>
-        close
+    <Box bg="white" padding={2} textAlign="center" color="black" shadow="lg">
+      YOU CAN CUSTOMIZE THE CIG NOW GUYS LIKE IF YOU CLICK CUSTOMIZE
+      <Button mx={6} onClick={() => setShow(false)}>
+        X
       </Button>
     </Box>
   )

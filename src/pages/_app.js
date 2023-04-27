@@ -1,11 +1,13 @@
 // pages/_app.js
-import { Annoucement } from "@/components/Announcement";
+import { CigDataProvider } from "@/components/CigDataProvider";
 import { ChakraProvider } from "@chakra-ui/react";
 
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <CigDataProvider>
+        <Component {...pageProps} />
+      </CigDataProvider>
     </ChakraProvider>
   );
 }
