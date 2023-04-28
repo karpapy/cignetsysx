@@ -9,7 +9,15 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE
 );
 
-const infuraURL = `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`;
+let infuraURL = `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`;
+if (process.env.DEBUG == "true") {
+  infuraURL = `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`;
+}
+
+let ethURL = "https://api.etherscan.io/";
+if (process.env.DEBUG == "true") {
+  ethURL = "https://api-goerli.etherscan.io/";
+}
 
 async function waitForConfirmation(hash, provider) {
   const transaction = await provider.getTransaction(hash);
@@ -23,7 +31,7 @@ async function waitForConfirmation(hash, provider) {
 
 async function getTransactionHistory(address) {
   const apiKey = process.env.ETHERSCAN_API_KEY;
-  const url = `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`;
+  const url = `${ethURL}api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&sort=desc&apikey=${apiKey}`;
 
   const response = await fetch(url);
   const data = await response.json();

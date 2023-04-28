@@ -70,6 +70,12 @@ export default function CreateAnnouncePage() {
       }),
     })
     const data = await res.json()
+    if (data && data.error) {
+      setStatus('ERROR')
+      setLoading(false)
+      setShowSpinner(false)
+      return
+    }
     console.log(data)
     setRefresh(true)
     setLoading(false)
