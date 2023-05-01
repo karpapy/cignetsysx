@@ -12,16 +12,20 @@
     "@chakra-ui/react": "^2.5.4",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@ethersproject/providers": "^5.7.2",
     "@supabase/supabase-js": "^2.20.0",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "ethers": "^5",
     "framer-motion": "^10.9.1",
+    "isomorphic-fetch": "^3.0.0",
     "lena.js": "^0.8.0",
     "lz-string": "^1.5.0",
     "next": "13.2.4",
     "party-js": "^2.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sentiment": "^5.0.2"
+    "sentiment": "^5.0.2",
+    "wagmi": "^0.12.12"
   }
 }
