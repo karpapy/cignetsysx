@@ -33,7 +33,6 @@ export const Annoucement = ({ refresh, setRefresh }) => {
       .limit(1)
       .single()
 
-    console.log(data)
     setAnnoucement(data['announcement'])
     if (data['author']) {
       if (data['author'][0] === '@') {
@@ -44,7 +43,6 @@ export const Annoucement = ({ refresh, setRefresh }) => {
   }
 
   useEffect(() => {
-    console.log('refreshing')
     getAnounceData()
     if (setRefresh) setRefresh(false)
   }, [refresh, setRefresh])
@@ -54,9 +52,19 @@ export const Annoucement = ({ refresh, setRefresh }) => {
     <Box bg="white" paddingX={2} color="black" shadow="lg">
       <Skeleton isLoaded={annoucement !== null}>
         <Flex alignItems="center" justifyContent="center" py={1}>
-          <Text fontSize="lg" flexGrow={1} textAlign="center">
-            {annoucement}
-          </Text>
+          <Box flexGrow={1}>
+            <Text fontSize="lg" textAlign="center">
+              {annoucement}
+            </Text>
+            {author === '' ? null : (
+              <Text textAlign="center" fontSize="12px" py={1} ml="10ch">
+                -{' '}
+                <Link color="blue" href={'https://twitter.com/' + author}>
+                  {author}
+                </Link>{' '}
+              </Text>
+            )}
+          </Box>
           <Button
             variant="ghost"
             colorScheme="red"
@@ -67,17 +75,6 @@ export const Annoucement = ({ refresh, setRefresh }) => {
             close
           </Button>
         </Flex>
-        <Text textAlign="center" fontSize="12px" pb={1}>
-          -{' '}
-          <Link color="blue" href={'https://twitter.com/' + author}>
-            {author}
-          </Link>{' '}
-          (
-          <Link color="blue" href="/announce">
-            create new announcement
-          </Link>
-          )
-        </Text>
       </Skeleton>
     </Box>
   )

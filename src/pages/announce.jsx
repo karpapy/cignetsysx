@@ -52,11 +52,12 @@ export default function CreateAnnouncePage() {
   const [loading, setLoading] = useState(false)
   const [refresh, setRefresh] = useState(false)
   const [status, setStatus] = useState('')
+  const [showMaxLength, setShowMaxLength] = useState(false)
   const ref = useRef(null)
 
   const handleClick = async (hash, address) => {
     setLoading(true)
-    const res = await fetch('/api/announce', {
+    const res = await fetch('/api/announce/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -76,7 +77,7 @@ export default function CreateAnnouncePage() {
       setShowSpinner(false)
       return
     }
-    console.log(data)
+
     setRefresh(true)
     setLoading(false)
     setShowSpinner(false)
@@ -102,9 +103,11 @@ export default function CreateAnnouncePage() {
     ...config,
     onSuccess(data) {
       setShowSpinner(true)
-      console.log('success', data.hash)
-      setStatus('Confirming... ')
-      handleClick(data.hash, address)
+      setStatus('Confirming...  ---> DO NOT REFERSH!!! <---')
+      // wait for 1 confirmation
+      data.wait(1).then(() => {
+        handleClick(data.hash, address)
+      })
     },
   })
 
@@ -118,6 +121,17 @@ export default function CreateAnnouncePage() {
     setMessageSigned(data)
   }
 
+  const handleEnterMessage = (e) => {
+    // check if message is longer than 140 chars
+    if (e.target.value.length > 140) {
+      setShowMaxLength(true)
+      return
+    } else {
+      setShowMaxLength(false)
+      setMessage(e.target.value)
+    }
+  }
+
   useEffect(() => {
     ref.current.addEventListener('click', () => {
       party.confetti(ref.current)
@@ -127,7 +141,7 @@ export default function CreateAnnouncePage() {
   return (
     <>
       <Head>
-        <title>Cigbot render online</title>
+        <title>VIP SECTION</title>
         <meta
           name="description"
           content="Generate custom cigs online free now"
@@ -136,7 +150,7 @@ export default function CreateAnnouncePage() {
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </Head>
       <Annoucement refresh={refresh} setRefresh={setRefresh} />
       <Box
@@ -145,17 +159,19 @@ export default function CreateAnnouncePage() {
         justifyContent="center"
         alignItems="center"
         w="95vw"
+        mx={2}
       >
         <Box display="flex" alignItems="center" flexDir="column" w="100%">
           <Heading fontSize="3vh" margin="20px">
             create an announcement
           </Heading>
           <Text>it goes up there 👆 until the next donation </Text>
-          <Box>
+          <Box w={['100%', '80%', '60%', '50%']}>
             <Box mb={3}>
               <Input
                 placeholder="message"
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={handleEnterMessage}
+                value={message}
                 my={1}
               />
               <SignCheker
@@ -163,16 +179,19 @@ export default function CreateAnnouncePage() {
                 address={address}
                 sign={messageSigned}
               />
+              {showMaxLength && (
+                <Text color="red.500">max message length 140 chars</Text>
+              )}
             </Box>
             <Input
               placeholder="twitter handle (optional)"
               onChange={(e) => setAuthor(e.target.value)}
             />
             <Box display="flex">
-              <Button variant="ghost" onClick={connect} my={2} w="100%">
+              <Button onClick={connect} my={2} colorScheme="orange" w="100%">
                 {clientIsConnected
                   ? address.slice(0, 6) + '...' + address.slice(-4)
-                  : 'Connect'}
+                  : 'CONNECT WALLET'}
               </Button>
               {clientIsConnected && (
                 <Button ml={3} onClick={handleSignMessage} my={2} w="100%">
@@ -181,7 +200,7 @@ export default function CreateAnnouncePage() {
               )}
             </Box>
 
-            <Flex>
+            <Flex display={clientIsConnected ? 'flex' : 'none'}>
               <Input
                 placeholder="ETH amount"
                 onChange={(e) => setEthAmount(e.target.value)}
@@ -220,10 +239,8 @@ export default function CreateAnnouncePage() {
                 {status} {showSpinner && <Spinner />}
               </Box>
             )}
-            <Link href="/">
-              <Button my={2} w="100%">
-                Back home
-              </Button>
+            <Link pt={5} href="/">
+              {'<-'} back to render
             </Link>
           </Box>
         </Box>

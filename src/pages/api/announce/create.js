@@ -13,6 +13,7 @@ let infuraURL = `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`;
 if (process.env.DEBUG == "true") {
   infuraURL = `https://goerli.infura.io/v3/${process.env.INFURA_API_KEY}`;
 }
+const provider = new JsonRpcProvider(infuraURL);
 
 let ethURL = "https://api.etherscan.io/";
 if (process.env.DEBUG == "true") {
@@ -24,7 +25,6 @@ async function waitForConfirmation(hash, provider) {
   if (!transaction) {
     throw new Error("Transaction not found");
   }
-
   const receipt = await provider.waitForTransaction(hash, 1);
   return receipt;
 }
@@ -35,8 +35,6 @@ async function getTransactionHistory(address) {
 
   const response = await fetch(url);
   const data = await response.json();
-
-  console.log(data);
 
   return data.result;
 }
@@ -56,8 +54,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Invalid signature." });
     }
 
-    // check if they were the most recent to donate to the address
-    const donationAddress = process.env.DONATION_ADDRESS;
+    const donationAddress = process.env.NEXT_PUBLIC_DONATION_ADDRESS;
+
+    console.log("Waiting for confirmation...");
+    await waitForConfirmation(hash, provider);
+    console.log("Confirmed!");
+
     const transactions = await getTransactionHistory(donationAddress);
 
     if (
@@ -70,31 +72,16 @@ export default async function handler(req, res) {
         .json({ error: "User is not the most recent donor." });
     }
 
-    // Wait for one block confirmation of the hash
-    const providerUrl = infuraURL;
-    const provider = new JsonRpcProvider(providerUrl);
-    console.log("Waiting for confirmation...");
-    try {
-      await waitForConfirmation(hash, provider);
-    } catch (error) {
-      return res
-        .status(400)
-        .json({ error: "Transaction not confirmed or not found." });
+    const { data, error } = await supabase
+      .from("announcements")
+      .insert([{ announcement: message, author }]);
+
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ error });
     }
 
-    try {
-      const { data, error } = await supabase
-        .from("announcements")
-        .insert([{ announcement: message, author }]);
-
-      if (error) {
-        throw error;
-      }
-
-      return res.status(200).json(data);
-    } catch (error) {
-      return res.status(500).json({ error: error.message });
-    }
+    res.status(200).json({ data });
   } else {
     res.setHeader("Allow", ["POST"]);
     res.status(405).end(`Method ${req.method} Not Allowed`);
