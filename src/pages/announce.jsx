@@ -92,7 +92,7 @@ export default function CreateAnnouncePage() {
 
   const { config } = usePrepareSendTransaction({
     request: {
-      to: '0x4eD9E3033c95ba15FD2A07dEbE5f7F4dCc56a5FD',
+      to: process.env.NEXT_PUBLIC_DONATION_ADDRESS,
       value: BigNumber.from(
         ethAmount ? '0x' + (ethAmount * 1e18).toString(16) : '0',
       ),
