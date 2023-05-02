@@ -38,7 +38,7 @@ const getPreviousAnnouncements = async () => {
     .from('announcements')
     .select('*')
     .order('created_at', { ascending: false })
-    .limit(10)
+    .limit(15)
 
   console.log(data)
   return data
@@ -286,7 +286,7 @@ export default function CreateAnnouncePage() {
           🙏
         </Text>
       </Box>
-      <Heading size="sm" m={5}>
+      <Heading size="md" m={5}>
         Historical legends 👇
       </Heading>
       <Box mx={3} overflow="scroll">
