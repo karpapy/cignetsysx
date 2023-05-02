@@ -7,6 +7,7 @@ import {
   Spinner,
   Link,
   Text,
+  Image,
 } from '@chakra-ui/react'
 import Head from 'next/head'
 import { Annoucement } from '@/components/Announcement'
@@ -40,6 +41,7 @@ export default function CreateAnnouncePage() {
 
   const [message, setMessage] = useState('')
   const [messageSigned, setMessageSigned] = useState('')
+  const [showGifs, setShowGifs] = useState(false)
 
   const signMessage = useSignMessage({
     message,
@@ -57,6 +59,7 @@ export default function CreateAnnouncePage() {
 
   const handleClick = async (hash, address) => {
     setLoading(true)
+    setShowGifs(false)
     const res = await fetch('/api/announce/create', {
       method: 'POST',
       headers: {
@@ -105,7 +108,8 @@ export default function CreateAnnouncePage() {
       setShowSpinner(true)
       setStatus('Confirming...  ---> DO NOT REFERSH!!! <---')
       // wait for 1 confirmation
-      data.wait(1).then(() => {
+      setShowGifs(true)
+      data.wait(2).then(() => {
         handleClick(data.hash, address)
       })
     },
@@ -227,6 +231,12 @@ export default function CreateAnnouncePage() {
                 Donate & Announce
               </Button>
             </Flex>
+            {showGifs && (
+              <Flex>
+                <Image src="/countdown.gif" alt="countdown" />
+                <Image src="/computer_dance.gif" alt="party" />
+              </Flex>
+            )}
             {status !== '' && (
               <Box
                 p={6}
