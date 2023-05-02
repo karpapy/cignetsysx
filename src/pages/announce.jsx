@@ -25,6 +25,24 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { BigNumber } from 'ethers'
 import dynamic from 'next/dynamic'
 import { SignCheker } from '@/components/SignCheck'
+import { createClient } from '@supabase/supabase-js'
+import { PreviousAnnouncementTable } from '@/components/PreviousAnnouncementTable'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_ROLE,
+)
+
+const getPreviousAnnouncements = async () => {
+  const { data } = await supabase
+    .from('announcements')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(10)
+
+  console.log(data)
+  return data
+}
 
 export default function CreateAnnouncePage() {
   const [clientIsConnected, setClientIsConnected] = useState(false)
@@ -38,6 +56,14 @@ export default function CreateAnnouncePage() {
     setClientIsConnected(isConnected)
   }, [isConnected])
   const [showSpinner, setShowSpinner] = useState(false)
+
+  const [previousAnnouncements, setPreviousAnnouncements] = useState([])
+
+  useEffect(() => {
+    getPreviousAnnouncements().then((data) => {
+      setPreviousAnnouncements(data)
+    })
+  }, [])
 
   const [message, setMessage] = useState('')
   const [messageSigned, setMessageSigned] = useState('')
@@ -259,6 +285,21 @@ export default function CreateAnnouncePage() {
         <Text fontSize="6vh" color="gray.500">
           🙏
         </Text>
+      </Box>
+      <Heading size="sm" m={5}>
+        Historical legends 👇
+      </Heading>
+      <Box mx={3} overflow="scroll">
+        <PreviousAnnouncementTable announcements={previousAnnouncements} />
+      </Box>
+      <Box
+        width="100%"
+        mt={6}
+        backgroundColor="whatsapp.400"
+        textAlign="center"
+        p={1}
+      >
+        <Text>~ words make love with one another ~</Text>
       </Box>
     </>
   )
