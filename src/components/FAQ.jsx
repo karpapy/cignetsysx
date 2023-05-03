@@ -1,5 +1,4 @@
 import { Box, Heading, List, ListItem, Text, Link } from '@chakra-ui/react'
-
 export const FAQSection = () => {
   return (
     <Box m={3}>
@@ -8,7 +7,7 @@ export const FAQSection = () => {
       </Heading>
 
       <Text fontWeight="bold">Q: What is this page for?</Text>
-      <Text>A: What isn't it for</Text>
+      <Text>A: What isn&apos;t it for</Text>
       <Text fontWeight="bold" mt={2}>
         Q: What is literature?
       </Text>
@@ -36,16 +35,16 @@ export const FAQSection = () => {
         Q: Did you use chatGPT to generate this FAQ?
       </Text>
       <Text>
-        A: As an AI model, I can't answer that question. Is there anything else
-        I could help you with?
+        A: As an AI model, I can&apos;t answer that question. Is there anything
+        else I could help you with?
       </Text>
 
       <Text fontWeight="bold" mt={2}>
         Q: Can I view previous announcements?
       </Text>
       <Text>
-        A: Yes, scroll down the page to see the "Historical legends". They our
-        mythos by which we are guided.
+        A: Yes, scroll down the page to see the &ldquo;Historical
+        legends&rdquo;. They our mythos by which we are guided.
       </Text>
     </Box>
   )
