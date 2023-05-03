@@ -27,6 +27,7 @@ import dynamic from 'next/dynamic'
 import { SignCheker } from '@/components/SignCheck'
 import { createClient } from '@supabase/supabase-js'
 import { PreviousAnnouncementTable } from '@/components/PreviousAnnouncementTable'
+import { FAQSection } from '@/components/FAQ'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -196,6 +197,9 @@ export default function CreateAnnouncePage() {
             create an announcement
           </Heading>
           <Text>it goes up there 👆 until the next donation </Text>
+          <Text fontStyle="italic" my={2}>
+            announcements are by donation, 0.003 ETH minimum spend
+          </Text>
           <Box w={['100%', '80%', '60%', '50%']}>
             <Box mb={3}>
               <Input
@@ -237,7 +241,7 @@ export default function CreateAnnouncePage() {
                 my={2}
                 type="number"
                 min="0"
-                step="0.005"
+                step="0.003"
               />
               <Button
                 onClick={handleDonate}
@@ -249,7 +253,7 @@ export default function CreateAnnouncePage() {
                   !clientIsConnected ||
                   !ethAmount ||
                   !messageSigned ||
-                  ethAmount < 0.005
+                  ethAmount < 0.003
                 }
                 ref={ref}
                 isLoading={isLoading}
@@ -291,6 +295,10 @@ export default function CreateAnnouncePage() {
       </Heading>
       <Box mx={3} overflow="scroll">
         <PreviousAnnouncementTable announcements={previousAnnouncements} />
+      </Box>
+
+      <Box m={5}>
+        <FAQSection />
       </Box>
       <Box
         width="100%"

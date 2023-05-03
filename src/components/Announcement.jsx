@@ -9,6 +9,7 @@ import {
   Text,
   Link,
   useBreakpointValue,
+  Stack,
   Skeleton,
 } from '@chakra-ui/react'
 import { createClient } from '@supabase/supabase-js'
@@ -56,24 +57,37 @@ export const Annoucement = ({ refresh, setRefresh }) => {
             <Text fontSize="lg" textAlign="center">
               {annoucement}
             </Text>
-            {author === '' ? null : (
-              <Text textAlign="center" fontSize="12px" py={1} ml="10ch">
-                -{' '}
-                <Link color="blue" href={'https://twitter.com/' + author}>
-                  {author}
-                </Link>{' '}
-              </Text>
-            )}
+            <Text textAlign="center" fontSize="12px" py={1} ml="10ch">
+              {author !== '' && ' — '}
+              <Link color="blue" href={'https://twitter.com/' + author}>
+                {author}
+              </Link>{' '}
+            </Text>
           </Box>
-          <Button
-            variant="ghost"
-            colorScheme="red"
-            mx={6}
-            size="md"
-            onClick={() => setShow(false)}
-          >
-            close
-          </Button>
+          <Stack ml={2}>
+            <Button
+              variant="ghost"
+              colorScheme="red"
+              my={0}
+              size="sm"
+              w="100%"
+              onClick={() => setShow(false)}
+            >
+              close
+            </Button>
+            <Text fontSize="12px">
+              [
+              <Link
+                fontSize="12px"
+                textAlign="center"
+                color="blue"
+                href="/announce"
+              >
+                create an announcement
+              </Link>
+              ]
+            </Text>
+          </Stack>
         </Flex>
       </Skeleton>
     </Box>
