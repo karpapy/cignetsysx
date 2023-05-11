@@ -56,17 +56,13 @@ export default async function handler(req, res) {
 
     const donationAddress = process.env.NEXT_PUBLIC_DONATION_ADDRESS;
 
-    console.log("Waiting for confirmation...");
     await waitForConfirmation(hash, provider);
-    console.log("Confirmed!");
-
     const transactions = await getTransactionHistory(donationAddress);
 
     if (
       transactions.length === 0 ||
       transactions[0].from.toLowerCase() !== address.toLowerCase()
     ) {
-      console.log(transactions[0].from.toLowerCase(), address.toLowerCase());
       return res
         .status(400)
         .json({ error: "User is not the most recent donor." });

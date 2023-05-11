@@ -49,3 +49,16 @@ export async function getRenderData() {
   const deserialized_data = await fetchRenderDataAndSave();
   return deserialized_data;
 }
+
+export const sayHello = async (cignum, caption) => {
+  await fetch("/api/hello", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      caption: caption,
+      cignum,
+    }),
+  });
+};

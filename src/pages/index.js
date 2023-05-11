@@ -4,6 +4,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 import { RenderComponent } from "@/components/Render";
 import { Annoucement } from "@/components/Announcement";
 import React from "react";
+import { Logger } from "@/components/Logger";
 
 export default function Home() {
   const [userDidRenderAtLeastOnce, setUserDidRenderAtLeastOnce] =

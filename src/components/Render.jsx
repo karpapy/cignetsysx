@@ -32,6 +32,7 @@ import { createClient } from '@supabase/supabase-js'
 import { Customize } from './Customize'
 import Head from 'next/head'
 import { titler } from '@/lib/titler'
+import { sayHello } from '@/lib/loader'
 
 const setimentScoreToNameColor = (score) => {
   if (score < -3.5) {
@@ -114,9 +115,6 @@ export const RenderComponent = ({ setUserDidRender }) => {
   const [filteredData, setFilteredData] = useState(null)
   const [selectedAttributes, setSelectedAttributes] = useState({})
   const [textTitle, setTextTitle] = useState('cigbot1111')
-
-  const [renderData, setRenderData] = useState(null)
-
   const [renderCounter, setRenderCounter] = useState(null)
 
   const render = async (text) => {
@@ -135,6 +133,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
     dataURI = addEffect.data
 
     await incrementRenderCounter()
+
     setEffect(addEffect.effect)
     setTextSentiment(setimentScoreToNameColor(score))
     setPastCreations((pastCreations) => [dataURI, ...pastCreations])
@@ -143,17 +142,14 @@ export const RenderComponent = ({ setUserDidRender }) => {
     setLoading(false)
     setUserDidRender(true)
     setTextTitle(titler())
+    await sayHello(bdata['cig'], textToRender)
   }
 
   async function getRenderData() {
-    const { data } = await supabase
-      .from('renders')
-      .select('*')
-      .eq('id', 1)
-      .single()
-    setRenderData(data)
-    setRenderCounter(data.views)
-    return data.views
+    const res = await fetch('/api/get-counts')
+    const { count } = await res.json()
+    setRenderCounter(count)
+    return count
   }
 
   async function incrementRenderCounter() {
@@ -284,6 +280,18 @@ export const RenderComponent = ({ setUserDidRender }) => {
               {renderCounter ? renderCounter : '...'}
             </Text>{' '}
             cigs rendered since Mon, Apr 17, 2023
+            {/* <Text
+              fontSize={['3xl', 'xl']}
+              fontWeight="normal"
+              textAlign={['left', 'center']}
+              mt={2}
+            >
+              [{' '}
+              <Link href="/stats" color="blue">
+                daily stats
+              </Link>{' '}
+              ]
+            </Text> */}
           </chakra.h1>
         </Box>
         {dataURI == '' ? (

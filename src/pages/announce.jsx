@@ -41,7 +41,6 @@ const getPreviousAnnouncements = async () => {
     .order('created_at', { ascending: false })
     .limit(15)
 
-  console.log(data)
   return data
 }
 
