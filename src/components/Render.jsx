@@ -266,7 +266,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
             >
               {renderCounter ? renderCounter : '...'}
             </Text>{' '}
-            cigs rendered since Mon, Apr 17, 2023
+            cigs rendered since Thursday, May 11, 2023
             {/* <Text
               fontSize={['3xl', 'xl']}
               fontWeight="normal"
