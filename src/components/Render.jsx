@@ -132,8 +132,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
     let addEffect = await addRandomImageEffect(dataURI, shouldFilter)
     dataURI = addEffect.data
 
-    await incrementRenderCounter()
-
+    await getRenderData()
     setEffect(addEffect.effect)
     setTextSentiment(setimentScoreToNameColor(score))
     setPastCreations((pastCreations) => [dataURI, ...pastCreations])
@@ -150,18 +149,6 @@ export const RenderComponent = ({ setUserDidRender }) => {
     const { count } = await res.json()
     setRenderCounter(count)
     return count
-  }
-
-  async function incrementRenderCounter() {
-    const views = await getRenderData()
-    const { data, error } = await supabase
-      .from('renders')
-      .update({ views: views + 1 })
-      .eq('id', 1)
-    if (error) {
-      console.log('error', error)
-    }
-    setRenderCounter(views + 1)
   }
 
   useEffect(() => {
