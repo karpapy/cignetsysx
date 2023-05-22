@@ -25,7 +25,22 @@ export default function Home() {
       const response = await fetch("/api/get-stats");
       const data = await response.json();
 
-      setData(data.genData);
+      if (!data.genData) {
+        return;
+      }
+
+      const dates = data.genData.map((d) => {
+        return {
+          date: new Date(d.name),
+          renders: d.renders,
+        };
+      });
+
+      dates.sort((a, b) => {
+        return a.date - b.date;
+      });
+
+      setData(dates);
       setLoading(false);
     };
     fetchData();
@@ -77,7 +92,7 @@ export default function Home() {
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="date" />
               <YAxis />
               <Tooltip />
               <Legend />
