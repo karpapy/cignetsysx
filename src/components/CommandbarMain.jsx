@@ -86,6 +86,12 @@ const CommandBarMain = () => {
             href: '/stats',
           },
           {
+            id: 'what is literature',
+            children: 'what is literature',
+            icon: 'BookOpenIcon',
+            href: '/WhatIsLiterature.pdf',
+          },
+          {
             id: 'privacy-policy',
             children: 'Privacy policy',
             icon: 'LifebuoyIcon',
