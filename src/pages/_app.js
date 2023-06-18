@@ -1,5 +1,6 @@
 // pages/_app.js
 import { CigDataProvider } from "@/components/CigDataProvider";
+import CommandBarMain from "@/components/CommandbarMain";
 import { ChakraProvider } from "@chakra-ui/react";
 import {
   WagmiConfig,
@@ -24,6 +25,7 @@ const client = createClient({
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider>
+      <CommandBarMain />
       <CigDataProvider>
         <WagmiConfig client={client} chains={chains}>
           <Component {...pageProps} />

@@ -24,6 +24,7 @@
     "next": "13.2.4",
     "party-js": "^2.2.0",
     "react": "18.2.0",
+    "react-cmdk": "^1.3.9",
     "react-dom": "18.2.0",
     "recharts": "^2.6.2",
     "sentiment": "^5.0.2",

@@ -11,6 +11,8 @@ import {
   Flex,
   Checkbox,
   Spinner,
+  Heading,
+  Kbd,
 } from '@chakra-ui/react'
 import { useState, useRef, useEffect } from 'react'
 import { Downloadable } from './Downloadable'
@@ -280,6 +282,9 @@ export const RenderComponent = ({ setUserDidRender }) => {
               ]
             </Text> */}
           </chakra.h1>
+          <Heading>
+            its dangerous to go alone use <Kbd>command</Kbd> + <Kbd>k</Kbd> !
+          </Heading>
         </Box>
         {dataURI == '' ? (
           <></>
