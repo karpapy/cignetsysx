@@ -44,9 +44,32 @@ export const putLabel = async (imageURL, label) => {
   const formatText = (label, fontSize) => {
     ctx.font = `bold ${fontSize}px helvetica`;
     let allLines = [];
+    // Split label by whitespace characters
     let words = label.split(/\s+/);
-    let curLine = words[0];
-    words.forEach((word, index) => {
+    // If a single word is greater than labelWidth, break it up
+    let shortWords = [];
+    words.forEach((word) => {
+      if (ctx.measureText(word).width > labelWidth) {
+        let wordParts = [];
+        let currentPart = '';
+        for (let i = 0; i < word.length; i++) {
+          currentPart += word[i];
+          if (ctx.measureText(currentPart).width > labelWidth) {
+            wordParts.push(currentPart);
+            currentPart = '';
+          }
+        }
+        if (currentPart.length > 0) {
+          wordParts.push(currentPart);
+        }
+        shortWords = shortWords.concat(wordParts);
+      } else {
+        shortWords.push(word);
+      }
+    });
+
+    let curLine = shortWords[0];
+    shortWords.forEach((word, index) => {
       if (index > 0) {
         let newWidth = ctx.measureText(curLine + " " + word).width;
         if (newWidth < labelWidth) {
