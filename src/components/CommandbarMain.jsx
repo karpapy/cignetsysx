@@ -96,6 +96,18 @@ const CommandBarMain = () => {
             icon: 'ChatBubbleLeftIcon',
             href: '/cigforum',
           },
+          {
+            id: 'Origins of Chaga (Full)',
+            children: 'Origins of Chaga (Full)',
+            icon: 'BookOpenIcon',
+            href: '/CancerWard.pdf',
+          },
+          {
+            id: 'Origins of Chaga (Abridged)',
+            children: 'Origins of Chaga (Abridged)',
+            icon: 'BookOpenIcon',
+            href: '/MycoJanFeb06.pdf',
+          },
         ],
       },
       {
