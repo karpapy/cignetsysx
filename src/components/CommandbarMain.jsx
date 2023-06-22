@@ -27,6 +27,21 @@ const CodePart = () => {
   )
 }
 
+const IcebergPart = () => {
+  return (
+    <Box display="flex" alignItems="center" width="100%">
+      <Image
+        mr={6}
+        src="/favicon.png"
+        alt="Nod"
+        maxH="50px"
+        borderRadius="full"
+      />
+      <Heading>USB iceberg</Heading>
+    </Box>
+  )
+}
+
 const CommandBarMain = () => {
   const [page, setPage] = useState('root')
   const [open, setOpen] = useState(false)
@@ -67,6 +82,12 @@ const CommandBarMain = () => {
             onClick: () => {
               alert('dude just click render')
             },
+          },
+          {
+            id: 'USB Iceberg',
+            children: 'USB Iceberg',
+            icon: 'BeakerIcon',
+            href: 'https://icebergcharts.com/i/USB',
           },
         ],
       },
