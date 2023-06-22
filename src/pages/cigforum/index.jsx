@@ -137,10 +137,11 @@ export default function Home() {
               <Link href="/cigforum">cigforum</Link>
             </CoolButton>
           </Flex>
+          <Text>top level threads</Text>
         </Box>
 
-        <Box m={2} display="flex" flexDir="column">
-          <PostList posts={previousPosts} />
+        <Box w="100%">
+          <PostList wrap={true} posts={previousPosts} />
           <Input
             my={2}
             placeholder="text to cigpost..."

@@ -89,6 +89,13 @@ const CommandBarMain = () => {
             icon: 'BeakerIcon',
             href: 'https://icebergcharts.com/i/USB',
           },
+
+          {
+            id: 'cigforum',
+            children: 'cigforum',
+            icon: 'ChatBubbleLeftIcon',
+            href: '/cigforum',
+          },
         ],
       },
       {

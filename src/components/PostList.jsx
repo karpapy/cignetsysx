@@ -4,19 +4,19 @@ import { Pack } from './Pack'
 import { CoolButton } from './CoolButton'
 import Link from 'next/link'
 
-export const PostList = ({ posts }) => {
+export const PostList = ({ wrap, posts }) => {
   return (
-    <Box>
+    <Box display={wrap ? 'flex' : 'block'} flexWrap={wrap ? 'wrap' : 'nowrap'}>
       {posts.map((post, index) => (
         <Box
           key={index}
           bgColor="gray.100"
-          p={2}
+          py={2}
           mt={3}
           boxShadow={index === 0 ? '0 0 10px 5px #2bff00' : 'none'}
         >
           <Pack cignum={post.cignum} message={post.message} />
-          <Flex justify="space-between">
+          <Flex justify="space-between" mx={5}>
             <CoolButton>{post.address}</CoolButton>
             <CoolButton>
               <Link href={'/cigforum/p/' + post.id}>view post</Link>

@@ -282,7 +282,27 @@ export const RenderComponent = ({ setUserDidRender }) => {
               ]
             </Text> */}
           </chakra.h1>
-          <Heading>
+          <Heading
+            fontFamily="monospace"
+            my={10}
+            // give it a neon glow
+            textShadow="0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 40px #0ff, 0 0 80px #0ff, 0 0 90px #0ff, 0 0 100px #0ff, 0 0 150px #0ff"
+            color="red.500"
+            display="flex"
+            flexDir="column"
+          >
+            🥑🥑🥑🚬🚬 hey, head over to the cigforum
+            🚬🚬🚬🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑🥑
+            <Button
+              size="xl"
+              onClick={() => {
+                window.open('/cigforum')
+              }}
+            >
+              TAKE ME THERE
+            </Button>
+          </Heading>
+          <Heading size="lg">
             its dangerous to go alone use <Kbd>command</Kbd> + <Kbd>k</Kbd> !
           </Heading>
         </Box>

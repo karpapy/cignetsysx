@@ -171,7 +171,7 @@ export default function Home() {
           </Flex>
         </Box>
 
-        <Box bgColor="red.200" p={5}>
+        <Box bgColor="red.200" p={1}>
           {previousPost && (
             <>
               {previousPost.parent_id && (
@@ -188,7 +188,7 @@ export default function Home() {
             </>
           )}
         </Box>
-        {replies && <PostList posts={replies} />}
+        {replies && <PostList wrap={false} posts={replies} />}
         <Box mx={1}>
           <Input
             w="100%"

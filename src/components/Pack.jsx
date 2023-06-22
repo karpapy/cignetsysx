@@ -33,7 +33,7 @@ export const Pack = ({ cignum, message }) => {
         width={['400px', '500px']}
         {...(loading && {
           height: '625px',
-          width: '500px',
+          width: '400px',
           borderRadius: '6px',
           marginY: '7px',
         })}
@@ -44,7 +44,7 @@ export const Pack = ({ cignum, message }) => {
             marginY="7px"
             src={dataURI}
             alt="A cig"
-            w="500px"
+            width="100%"
           />
         </Downloadable>
       </Skeleton>

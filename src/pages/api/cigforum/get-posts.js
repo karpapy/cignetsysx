@@ -20,7 +20,11 @@ function sortPosts(posts) {
 
 export default async function handler(req, res) {
   // get the last 1000 posts
-  const { data, error } = await supabase.from("posts").select("*").limit(1000);
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .is("parent_id", null)
+    .limit(1000);
 
   if (error) {
     return res.status(500).json({ error: error.message });
