@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { caption, cignum } = req.body;
+  const { caption, cignum, origin } = req.body;
 
   if (!caption || !cignum) {
     return res.status(400).json({ error: "Caption and cignum required." });
@@ -20,6 +20,7 @@ export default async function handler(req, res) {
     {
       caption,
       cignum,
+      origin,
     },
   ]);
 

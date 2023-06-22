@@ -51,6 +51,18 @@ export async function getRenderData() {
 }
 
 export const sayHello = async (cignum, caption) => {
+  // get the basename of the url
+  const url = window.location.href
+    .replace(/\/$/, "")
+    .replace("https://", "")
+    .replace("http://", "");
+  let origin = "lol";
+  if (url === "localhost:3000") {
+    origin = "dev";
+  } else if (url === "cigbot.life") {
+    origin = "life";
+  }
+
   await fetch("/api/hello", {
     method: "POST",
     headers: {
@@ -59,6 +71,7 @@ export const sayHello = async (cignum, caption) => {
     body: JSON.stringify({
       caption: caption,
       cignum,
+      origin,
     }),
   });
 };

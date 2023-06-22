@@ -269,7 +269,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
               {renderCounter ? renderCounter : '...'}
             </Text>{' '}
             cigs rendered since Thursday, May 11, 2023
-            {/* <Text
+            <Text
               fontSize={['3xl', 'xl']}
               fontWeight="normal"
               textAlign={['left', 'center']}
@@ -280,7 +280,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
                 daily stats
               </Link>{' '}
               ]
-            </Text> */}
+            </Text>
           </chakra.h1>
           <Heading
             fontFamily="monospace"
@@ -364,7 +364,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
                   the code
                 </Link>
                 <Text> | </Text>
-                <Link color="blue" href="https://cigawrettebot.com/">
+                <Link color="blue" href="https://cigbot.life/">
                   official renderer
                 </Link>
                 <Text> | </Text>
