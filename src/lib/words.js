@@ -23,3 +23,17 @@ export function checkPass(inputString, encodedString) {
   const decodedString = Buffer.from(encodedString, "base64").toString("utf-8");
   return inputString === decodedString;
 }
+
+export const removeBannedWord = async (word) => {
+  try {
+    fetch("/api/remove-banned-word", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ word: word }),
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};

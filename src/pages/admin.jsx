@@ -12,7 +12,12 @@ import {
 import { RenderComponent } from '@/components/Render'
 import { Annoucement } from '@/components/Announcement'
 import React, { useEffect, useState } from 'react'
-import { banWord, getBannedWords, checkPass } from '@/lib/words'
+import {
+  banWord,
+  getBannedWords,
+  checkPass,
+  removeBannedWord,
+} from '@/lib/words'
 import { loadCloudflareCache } from '@/lib/loader'
 
 export default function Admin() {
@@ -27,6 +32,9 @@ export default function Admin() {
     if (checkPass(response, 'c21va2VHMDBkQ2hhZ2dh')) {
       setShow(true)
       loadCloudflareCache()
+    } else {
+      alert('Incorrect password')
+      window.location.reload()
     }
   }, [])
 
@@ -45,6 +53,11 @@ export default function Admin() {
   const handleAddWord = async () => {
     banWord(word)
     setWord('')
+    window.location.reload()
+  }
+
+  const handleUnbanWord = async (word) => {
+    removeBannedWord(word)
     window.location.reload()
   }
 
@@ -81,9 +94,17 @@ export default function Admin() {
             <Text>Banned words: (turn the label text red)</Text>
             {bannedWords.map((word, index) => {
               return (
-                <Badge p={2} key={index}>
-                  {word.word}
-                </Badge>
+                <Flex key={index} justifyContent="space-between">
+                  <Text fontWeight="bold" bgColor="gray.100" flexGrow={1} p={2}>
+                    {word.word}
+                  </Text>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => handleUnbanWord(word.word)}
+                  >
+                    unban
+                  </Button>
+                </Flex>
               )
             })}
             <Flex>
