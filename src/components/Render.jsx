@@ -124,7 +124,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
   const render = async (text) => {
     const wordsInText = text.split(' ')
     const isBannedWordInText = wordsInText.some((word) =>
-      bannedWords.includes(word),
+      bannedWords.includes(word.toLowerCase()),
     )
 
     let sent = new Sentiment()
@@ -185,7 +185,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
     const words = async () => {
       try {
         const words = await getBannedWords()
-        setBannedWords(words.map((word) => word['word']))
+        setBannedWords(words.map((word) => word['word'].toLowerCase()))
       } catch (err) {
         console.log(err)
       }
