@@ -23,6 +23,7 @@ export default function Admin() {
 
   useEffect(() => {
     const response = prompt('Enter password (you may need to do it twice)')
+    if (typeof response !== 'string') return
     if (checkPass(response, 'c21va2VHMDBkQ2hhZ2dh')) {
       setShow(true)
       loadCloudflareCache()
