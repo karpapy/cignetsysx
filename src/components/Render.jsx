@@ -117,7 +117,7 @@ export const RenderComponent = ({ setUserDidRender }) => {
   const [showCustomize, setShowCustomize] = useState(false)
   const [filteredData, setFilteredData] = useState(null)
   const [selectedAttributes, setSelectedAttributes] = useState({})
-  const [textTitle, setTextTitle] = useState('cigbot1111')
+  const [textTitle, setTextTitle] = useState('cigwave summer')
   const [renderCounter, setRenderCounter] = useState(null)
   const [bannedWords, setBannedWords] = useState([])
 
