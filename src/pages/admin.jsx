@@ -77,7 +77,7 @@ export default function Admin() {
         </Text>
         {show && (
           <VStack align="left">
-            <Text>Banned words:</Text>
+            <Text>Banned words: (turn the label text red)</Text>
             {bannedWords.map((word, index) => {
               return (
                 <Badge p={2} key={index}>

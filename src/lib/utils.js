@@ -7,7 +7,7 @@ export const fullyEncodeURI = (value) =>
     .replace(/\*/g, "%2a")
     .replace(/~/g, "%7e");
 
-export const putLabel = async (imageURL, label) => {
+export const putLabel = async (imageURL, label, textColor) => {
   //   Do some CORS stuff
   let url = imageURL;
   const image = new Image();
@@ -51,12 +51,12 @@ export const putLabel = async (imageURL, label) => {
     words.forEach((word) => {
       if (ctx.measureText(word).width > labelWidth) {
         let wordParts = [];
-        let currentPart = '';
+        let currentPart = "";
         for (let i = 0; i < word.length; i++) {
           currentPart += word[i];
           if (ctx.measureText(currentPart).width > labelWidth) {
             wordParts.push(currentPart);
-            currentPart = '';
+            currentPart = "";
           }
         }
         if (currentPart.length > 0) {
@@ -115,6 +115,7 @@ export const putLabel = async (imageURL, label) => {
       textMeasure.fontBoundingBoxAscent + textMeasure.fontBoundingBoxDescent;
     let height = fontHeight / 2.2;
 
+    ctx.fillStyle = textColor;
     ctx.fillText(line, 0, y);
     y += height; // increment y by a fraction of the height of the current line
     ctx.translate(0, height);

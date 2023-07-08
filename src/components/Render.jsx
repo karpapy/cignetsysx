@@ -35,6 +35,7 @@ import { Customize } from './Customize'
 import Head from 'next/head'
 import { titler } from '@/lib/titler'
 import { sayHello } from '@/lib/loader'
+import { banWord, getBannedWords, checkPass } from '@/lib/words'
 
 const setimentScoreToNameColor = (score) => {
   if (score < -3.5) {
@@ -118,8 +119,14 @@ export const RenderComponent = ({ setUserDidRender }) => {
   const [selectedAttributes, setSelectedAttributes] = useState({})
   const [textTitle, setTextTitle] = useState('cigbot1111')
   const [renderCounter, setRenderCounter] = useState(null)
+  const [bannedWords, setBannedWords] = useState([])
 
   const render = async (text) => {
+    const wordsInText = text.split(' ')
+    const isBannedWordInText = wordsInText.some((word) =>
+      bannedWords.includes(word),
+    )
+
     let sent = new Sentiment()
     let score = sent.analyze(text).score
     setLoading(true)
@@ -129,7 +136,14 @@ export const RenderComponent = ({ setUserDidRender }) => {
       cignumber = filteredData[Math.floor(Math.random() * filteredData.length)]
       cignumber = parseInt(cignumber['name'].replace('#', ''))
     }
-    const bdata = await getImageBufferData(text, cignumber)
+
+    let bdata
+    if (isBannedWordInText) {
+      bdata = await getImageBufferData(text, cignumber, 'red')
+    } else {
+      bdata = await getImageBufferData(text, cignumber, 'black')
+    }
+
     let dataURI = bdata['data']
     let addEffect = await addRandomImageEffect(dataURI, shouldFilter)
     dataURI = addEffect.data
@@ -165,6 +179,18 @@ export const RenderComponent = ({ setUserDidRender }) => {
 
   useEffect(() => {
     getRenderData()
+  }, [])
+
+  useEffect(() => {
+    const words = async () => {
+      try {
+        const words = await getBannedWords()
+        setBannedWords(words.map((word) => word['word']))
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    words()
   }, [])
 
   return (
