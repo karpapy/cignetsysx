@@ -12,7 +12,7 @@ export const Stamp = () => {
   const canvasRef = useRef(null);
   const [combinedImage, setCombinedImage] = useState(null);
 
-  const stampsblanks = [1155, 1210, 1368, 1395, 1407, 1446, 1528, 1560, 1576, 165, 1659, 1727, 1798, 1829, 1913, 1965, 1978, 2022, 2291, 2328, 2388, 2432, 2551, 2564, 2615, 2746, 2836, 3819];
+  const stampsblanks = [354, 1155, 1210, 1368, 1395, 1407, 1446, 1528, 1560, 1576, 165, 1659, 1727, 1798, 1829, 1913, 1965, 1978, 2022, 2083, 2291, 2328, 2388, 2432, 2551, 2564, 2615, 2746, 2780, 2836, 3035, 3819];
   const [cigpack, setCigpack] = useState(`https://bafybeigvhgkcqqamlukxcmjodalpk2kuy5qzqtx6m4i6pvb7o3ammss3y4.ipfs.dweb.link/${stampsblanks[0]}.jpg`);
 
   const randomizeCigpack = () => {
