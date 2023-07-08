@@ -75,3 +75,15 @@ export const sayHello = async (cignum, caption) => {
     }),
   });
 };
+
+export const loadCloudflareCache = async () => {
+  try {
+    // we are going to set no-cors
+    const res = await fetch(
+      "https://cloudflare-workers.surreali.workers.dev/",
+      { mode: "no-cors" }
+    );
+  } catch (e) {
+    console.error(e);
+  }
+};
