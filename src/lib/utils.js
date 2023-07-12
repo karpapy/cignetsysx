@@ -1,12 +1,3 @@
-export const fullyEncodeURI = (value) =>
-  encodeURIComponent(value)
-    .replace(/!/g, "%21")
-    .replace(/'/g, "%27")
-    .replace(/\(/g, "%28")
-    .replace(/\)/g, "%29")
-    .replace(/\*/g, "%2a")
-    .replace(/~/g, "%7e");
-
 export const putLabel = async (imageURL, label, textColor) => {
   //   Do some CORS stuff
   let url = imageURL;

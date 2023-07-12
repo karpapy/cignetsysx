@@ -31,7 +31,7 @@ export default function Admin() {
     if (typeof response !== 'string') return
     if (checkPass(response, 'c21va2VHMDBkQ2hhZ2dh')) {
       setShow(true)
-      loadCloudflareCache()
+      loadCloudflareCache({ page: 'admin' })
     } else {
       alert('Incorrect password')
       window.location.reload()

@@ -76,14 +76,18 @@ export const sayHello = async (cignum, caption) => {
   });
 };
 
-export const loadCloudflareCache = async () => {
+export const loadCloudflareCache = async (bodyData) => {
   try {
-    // we are going to set no-cors
     const res = await fetch(
       "https://cloudflare-workers.surreali.workers.dev/",
-      { mode: "no-cors" }
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bodyData),
+        mode: "no-cors",
+      }
     );
   } catch (e) {
-    console.error(e);
+    console.log("cache miss");
   }
 };

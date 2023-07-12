@@ -30,7 +30,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.png" />
       </Head>
       <Annoucement />
-      <div style={{ marginBottom: "100px" }}>
+      <Box marginBottom="100px">
         <Box
           display="flex"
           flexDir="column"
@@ -40,14 +40,14 @@ export default function Home() {
         >
           <Box display="flex" alignItems="center" flexDir="column" w="100%">
             <Heading fontSize="3vh" margin="20px">
-            ~*STAMP BRAND CIGAWRETTES*~ 
+              ~*STAMP BRAND CIGAWRETTES*~
             </Heading>
           </Box>
           <Box width="100%" height={400} my={5} maxW="800px">
             <Stamp />
           </Box>
         </Box>
-      </div>
+      </Box>
       <Flex
         w="100%"
         justifyContent="center"
