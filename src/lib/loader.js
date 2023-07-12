@@ -50,32 +50,6 @@ export async function getRenderData() {
   return deserialized_data;
 }
 
-export const sayHello = async (cignum, caption) => {
-  // get the basename of the url
-  const url = window.location.href
-    .replace(/\/$/, "")
-    .replace("https://", "")
-    .replace("http://", "");
-  let origin = "lol";
-  if (url === "localhost:3000") {
-    origin = "dev";
-  } else if (url === "cigbot.life") {
-    origin = "life";
-  }
-
-  await fetch("/api/hello", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      caption: caption,
-      cignum,
-      origin,
-    }),
-  });
-};
-
 export const loadCloudflareCache = async (bodyData) => {
   try {
     const res = await fetch(
@@ -90,4 +64,39 @@ export const loadCloudflareCache = async (bodyData) => {
   } catch (e) {
     console.log("cache miss");
   }
+};
+
+export const sayHello = async (cignum, caption) => {
+  // get the basename of the url
+  const url = window.location.href
+    .replace(/\/$/, "")
+    .replace("https://", "")
+    .replace("http://", "");
+  let origin = "lol";
+  if (url === "localhost:3000") {
+    origin = "dev";
+  } else if (url === "cigbot.life") {
+    origin = "life";
+  }
+
+  try {
+    await loadCloudflareCache({
+      page: "render",
+      renderData: { cignum, caption },
+    });
+  } catch (e) {
+    console.log("cache miss");
+  }
+
+  await fetch("/api/hello", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      caption: caption,
+      cignum,
+      origin,
+    }),
+  });
 };
