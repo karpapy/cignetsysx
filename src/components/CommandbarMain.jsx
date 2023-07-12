@@ -97,6 +97,12 @@ const CommandBarMain = () => {
             href: '/cigforum',
           },
           {
+            id: 'stamps',
+            children: 'stamps',
+            icon: 'BeakerIcon',
+            href: '/stamps',
+          },
+          {
             id: 'Origins of Chaga (Full)',
             children: 'Origins of Chaga (Full)',
             icon: 'BookOpenIcon',
