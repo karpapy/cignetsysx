@@ -138,6 +138,12 @@ const CommandBarMain = () => {
             href: '/WhatIsLiterature.pdf',
           },
           {
+            id: 'Candide, ou l’Optimisme',
+            children: 'Candide, ou l’Optimisme',
+            icon: 'BookOpenIcon',
+            href: '/candide.pdf',
+          },
+          {
             id: 'privacy-policy',
             children: 'Privacy policy',
             icon: 'LifebuoyIcon',
