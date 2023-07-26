@@ -47,12 +47,13 @@ export const Stamp = () => {
     3035,
     3819,
   ]
+  const randomIndex = Math.floor(Math.random() * stampsblanks.length)
+
   const [cigpack, setCigpack] = useState(
-    `https://bafybeigvhgkcqqamlukxcmjodalpk2kuy5qzqtx6m4i6pvb7o3ammss3y4.ipfs.dweb.link/${stampsblanks[0]}.jpg`,
+    `https://bafybeigvhgkcqqamlukxcmjodalpk2kuy5qzqtx6m4i6pvb7o3ammss3y4.ipfs.dweb.link/${stampsblanks[randomIndex]}.jpg`,
   )
 
   const randomizeCigpack = () => {
-    const randomIndex = Math.floor(Math.random() * stampsblanks.length)
     setCigpack(
       `https://bafybeigvhgkcqqamlukxcmjodalpk2kuy5qzqtx6m4i6pvb7o3ammss3y4.ipfs.dweb.link/${stampsblanks[randomIndex]}.jpg`,
     )
