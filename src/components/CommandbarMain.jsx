@@ -103,6 +103,12 @@ const CommandBarMain = () => {
             href: '/stamps',
           },
           {
+            id: 'powerpacks',
+            children: 'powerpacks meme generator',
+            icon: 'BeakerIcon',
+            href: '/powerpacks',
+          },
+          {
             id: 'Origins of Chaga (Full)',
             children: 'Origins of Chaga (Full)',
             icon: 'BookOpenIcon',
@@ -136,12 +142,6 @@ const CommandBarMain = () => {
             children: 'what is literature',
             icon: 'BookOpenIcon',
             href: '/WhatIsLiterature.pdf',
-          },
-          {
-            id: 'Candide, ou l’Optimisme',
-            children: 'Candide, ou l’Optimisme',
-            icon: 'BookOpenIcon',
-            href: '/candide.pdf',
           },
           {
             id: 'privacy-policy',
