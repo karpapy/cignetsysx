@@ -103,6 +103,12 @@ const CommandBarMain = () => {
             href: '/stamps',
           },
           {
+            id: 'powerpacks',
+            children: 'powerpacks meme generator',
+            icon: 'BeakerIcon',
+            href: '/powerpacks',
+          },
+          {
             id: 'Origins of Chaga (Full)',
             children: 'Origins of Chaga (Full)',
             icon: 'BookOpenIcon',
