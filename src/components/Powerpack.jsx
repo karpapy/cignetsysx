@@ -33,8 +33,8 @@ export const Stamp = () => {
         line = testLine;
       }
     }
-    context.fillText(line, x, y);
     context.strokeText(line, x, y);
+    context.fillText(line, x, y);
   };
 
   // Helper function to calculate the height of the wrapped text
